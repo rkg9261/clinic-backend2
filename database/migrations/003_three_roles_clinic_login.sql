@@ -1,0 +1,48 @@
+-- Align users to ADMIN, CLINIC, PATIENT and add date/mobile support.
+
+USE clinic_db;
+
+ALTER TABLE branches
+  ADD COLUMN created_date DATE NOT NULL DEFAULT (CURRENT_DATE) AFTER id;
+
+ALTER TABLE users
+  ADD COLUMN created_date DATE NOT NULL DEFAULT (CURRENT_DATE) AFTER id,
+  ADD COLUMN mobile VARCHAR(20) NULL AFTER email;
+
+ALTER TABLE users
+  MODIFY role ENUM('USER', 'ADMIN', 'BRANCH_MANAGER', 'CLINIC_MANAGER', 'PATIENT', 'CLINIC') NOT NULL DEFAULT 'PATIENT';
+
+UPDATE users SET role = 'CLINIC' WHERE role IN ('BRANCH_MANAGER', 'CLINIC_MANAGER');
+UPDATE users SET role = 'PATIENT' WHERE role = 'USER';
+
+ALTER TABLE users
+  MODIFY email VARCHAR(150) NULL,
+  MODIFY role ENUM('PATIENT', 'ADMIN', 'CLINIC') NOT NULL DEFAULT 'PATIENT',
+  ADD UNIQUE KEY uq_users_mobile (mobile);
+
+ALTER TABLE refresh_tokens
+  ADD COLUMN created_date DATE NOT NULL DEFAULT (CURRENT_DATE) AFTER id;
+
+ALTER TABLE subscription_packages
+  ADD COLUMN created_date DATE NOT NULL DEFAULT (CURRENT_DATE) AFTER id;
+
+ALTER TABLE branch_subscriptions
+  ADD COLUMN created_date DATE NOT NULL DEFAULT (CURRENT_DATE) AFTER id;
+
+ALTER TABLE patients
+  ADD COLUMN created_date DATE NOT NULL DEFAULT (CURRENT_DATE) AFTER id;
+
+ALTER TABLE attendance_records
+  ADD COLUMN created_date DATE NOT NULL DEFAULT (CURRENT_DATE) AFTER id;
+
+ALTER TABLE recharge_transactions
+  ADD COLUMN created_date DATE NOT NULL DEFAULT (CURRENT_DATE) AFTER id;
+
+ALTER TABLE patient_file_entries
+  ADD COLUMN created_date DATE NOT NULL DEFAULT (CURRENT_DATE) AFTER id;
+
+ALTER TABLE manager_time_tables
+  ADD COLUMN created_date DATE NOT NULL DEFAULT (CURRENT_DATE) AFTER id;
+
+ALTER TABLE manager_queries
+  ADD COLUMN created_date DATE NOT NULL DEFAULT (CURRENT_DATE) AFTER id;
