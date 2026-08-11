@@ -19,22 +19,45 @@ import doctorRoutes from "./routes/doctor.routes.js"
 
 
 const app = express();
+// --------------------------------------------------
+// Security
+// --------------------------------------------------
 
 app.use(helmet());
+
+// --------------------------------------------------
+// CORS
+// --------------------------------------------------
+
 app.use(cors({
-    origin: ["https://clinic-website-blond-five.vercel.app", "http://localhost:5173"],
+    origin: ["http://thekapc.com", "http://localhost:5173"],
     credentials: true
 }));
+
+// --------------------------------------------------
+// Body Parser
+// --------------------------------------------------
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// --------------------------------------------------
+// Static Files
+// --------------------------------------------------
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use("/uploads/reports", express.static(path.join(process.cwd(), "uploads", "reports")));
 
 // DB connect
 await connectDB();
 
-app.get("/", (req, res)=>{
-    res.send("api is running");
-})
+// app.get("/", (req, res)=>{
+//     res.send("api is running");
+// })
+app.get("/", (req, res) => {
+    res.json({
+        success: true,
+        message: "Clinic API is running"
+    });
+});
 
 app.use("/api/auth", authRoutes)
 app.use("/api/clinics", clinicRoutes)
@@ -50,7 +73,10 @@ app.use("/api/prescriptions", prescriptionRoutes)
 app.use("/api/prescription-master", prescriptionMasterRoutes)
 app.use("/api/doctor", doctorRoutes)
 
-const PORT = 5000;
-app.listen(PORT, ()=>console.log("server is running on", PORT));
+const PORT = process.env.PORT || 3000;//5000;
+//app.listen(PORT, ()=>console.log("server is running on", PORT));
+app.listen(PORT, () => {
+    console.log(`Clinic API is running on port ${PORT}`);
+});
 
 

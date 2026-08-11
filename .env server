@@ -1,0 +1,23 @@
+DB_HOST=localhost
+DB_USER=u912422977_user_clinic2
+DB_PASSWORD=7|S1OUA4ox
+DB_NAME=u912422977_clinic_db2
+DB_PORT=3306
+
+JWT_SECRET=f7s9sd03f98ss523btnyiwsie83udndy5s3nj47eu20dkvnyb
+JWT_ACCESS_EXPIRES_IN=15m
+JWT_REFRESH_EXPIRES_DAYS=30
+
+# Set to false to allow login without email verification
+REQUIRE_EMAIL_VERIFICATION=true
+
+# Used in verification email links
+APP_URL=https://thekapc.com/
+
+# SMTP (optional — without SMTP, verification URL is logged to console)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_app_password
+SMTP_FROM="Clinic App <your_email@gmail.com>"
