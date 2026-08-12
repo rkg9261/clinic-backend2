@@ -1,21 +1,21 @@
-import express from "express"
+import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import path from "path";
 import { connectDB } from "./config/db.js";
-import authRoutes from "./routes/auth.routes.js"
-import clinicRoutes from "./routes/clinic.routes.js"
-import clinicOperationsRoutes from "./routes/manager.routes.js"
-import adminRoutes from "./routes/admin.routes.js"
-import patientRoutes from "./routes/patient.routes.js"
-import patientPortalRoutes from "./routes/patientPortal.routes.js"
-import appointmentRoutes from "./routes/appointment.routes.js"
-import serviceCategoryRoutes from "./routes/serviceCategory.routes.js"
-import serviceSubCategoryRoutes from "./routes/serviceSubCategory.routes.js"
-import serviceRoutes from "./routes/service.routes.js"
-import prescriptionRoutes from "./routes/prescription.routes.js"
-import prescriptionMasterRoutes from "./routes/prescriptionMaster.routes.js"
-import doctorRoutes from "./routes/doctor.routes.js"
+import authRoutes from "./routes/auth.routes.js";
+import clinicRoutes from "./routes/clinic.routes.js";
+import clinicOperationsRoutes from "./routes/manager.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
+import patientRoutes from "./routes/patient.routes.js";
+import patientPortalRoutes from "./routes/patientPortal.routes.js";
+import appointmentRoutes from "./routes/appointment.routes.js";
+import serviceCategoryRoutes from "./routes/serviceCategory.routes.js";
+import serviceSubCategoryRoutes from "./routes/serviceSubCategory.routes.js";
+import serviceRoutes from "./routes/service.routes.js";
+import prescriptionRoutes from "./routes/prescription.routes.js";
+import prescriptionMasterRoutes from "./routes/prescriptionMaster.routes.js";
+import doctorRoutes from "./routes/doctor.routes.js";
 
 
 const app = express();
@@ -47,7 +47,7 @@ app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use("/uploads/reports", express.static(path.join(process.cwd(), "uploads", "reports")));
 
 // DB connect
-await connectDB();
+//await connectDB();
 
 // app.get("/", (req, res)=>{
 //     res.send("api is running");
@@ -80,3 +80,20 @@ app.listen(PORT, () => {
 });
 
 
+// DB connection + server startup
+const startServer = async () => {
+    try {
+        await connectDB();
+
+        const PORT = process.env.PORT || 3000;
+
+        app.listen(PORT, () => {
+            console.log(`Clinic API is running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error("Failed to start server:", error);
+        process.exit(1);
+    }
+};
+
+startServer();
