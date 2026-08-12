@@ -12,7 +12,7 @@ import {
 const router = express.Router();
 
 // router.use(authMiddleware, authorizeRoles("PATIENT"));
-
+//localhost:5000/api/appointment/create
 router.post("/create", createAppointment);
 router.get("/list", getAppointment)
 router.get("/:id", getAppointmentById)
