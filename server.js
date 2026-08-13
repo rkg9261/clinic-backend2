@@ -28,7 +28,7 @@ app.use(helmet());
 // --------------------------------------------------
 // CORS
 // --------------------------------------------------
-const cors = require('cors');
+//const cors = require('cors');
 // Define configuration options
 const corsOptions = {
     origin: ['http://localhost:3000', 'http://localhost:5173','https://thekapc.com', 'http://thekapc.com'], // Allowed domains
@@ -39,7 +39,7 @@ const corsOptions = {
 
 // Pass options into the middleware
 app.use(cors(corsOptions));
-
+app.options('*', cors()); 
 // app.use(cors({
 //     origin: ["http://thekapc.com", "http://localhost:5173"],
 //     credentials: true
@@ -86,9 +86,9 @@ app.use("/api/doctor", doctorRoutes)
 
 const PORT = process.env.PORT || 3000;//5000;
 //app.listen(PORT, ()=>console.log("server is running on", PORT));
-app.listen(PORT, () => {
-    console.log(`Clinic API is running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Clinic API is running on port ${PORT}`);
+// });
 
 
 // DB connection + server startup
