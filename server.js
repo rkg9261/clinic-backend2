@@ -31,15 +31,26 @@ app.use(helmet());
 //const cors = require('cors');
 // Define configuration options
 const corsOptions = {
-    origin: ['http://localhost:3000', 'http://localhost:5173','https://thekapc.com', 'http://thekapc.com'], // Allowed domains
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],                    // Allowed methods
-    allowedHeaders: ['Content-Type', 'Authorization'],             // Allowed custom headers
+    origin: [
+            'http://localhost:3000', 
+            'http://localhost:5173',
+            'https://thekapc.com', 
+            'http://thekapc.com',
+            'https://api2.thekapc.com',  // ADD THIS
+            'http://api2.thekapc.com',   // ADD THIS (HTTP version)
+            'https://www.thekapc.com',   // If you use www subdomain
+            'http://www.thekapc.com'     // If you use www subdomain
+
+            //   /\.thekapc\.com$/, // Allows any subdomain of thekapc.com
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Added OPTIONS
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 };
 
 // Pass options into the middleware
 app.use(cors(corsOptions));
-app.options('*', cors()); 
+// Remove app.options('*', cors()); - not needed with proper config
 // app.use(cors({
 //     origin: ["http://thekapc.com", "http://localhost:5173"],
 //     credentials: true
