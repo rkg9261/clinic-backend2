@@ -226,7 +226,7 @@ export const listClinics = async (req, res) => {
         const activeOnly = req.query.active !== "false";
 
         const [rows] = await db.query(
-            `SELECT id, clinic_code, name, address, phone, email, doctor_name,
+            `SELECT id, clinic_code, name, address, phone, email, doctor_name, doctor_degree,
                 state_council_registration_no, gstin, logo_file,
                 letterhead_header_file, letterhead_footer_file, 
                 id_card_background_file, approval_status, created_by_admin_id, is_active, created_at, updated_at
