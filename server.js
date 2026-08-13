@@ -33,7 +33,8 @@ const cors = require('cors');
 const corsOptions = {
     origin: ['http://localhost:3000', 'http://localhost:5173','https://thekapc.com', 'http://thekapc.com'], // Allowed domains
     methods: ['GET', 'POST', 'PUT', 'DELETE'],                    // Allowed methods
-    allowedHeaders: ['Content-Type', 'Authorization']             // Allowed custom headers
+    allowedHeaders: ['Content-Type', 'Authorization'],             // Allowed custom headers
+    credentials: true
 };
 
 // Pass options into the middleware
