@@ -17,6 +17,10 @@ import prescriptionRoutes from "./routes/prescription.routes.js";
 import prescriptionMasterRoutes from "./routes/prescriptionMaster.routes.js";
 import doctorRoutes from "./routes/doctor.routes.js";
 
+//import weeklyScheduleRoutes from "./routes/weeklySchedule.routes.js";
+import appointmentSettingsRoutes from "./routes/appointmentSettings.routes.js";
+//import blockedSlotRoutes from "./routes/blockedSlot.routes.js";
+
 
 const app = express();
 // --------------------------------------------------
@@ -94,6 +98,10 @@ app.use("/api/services", serviceRoutes)
 app.use("/api/prescriptions", prescriptionRoutes)
 app.use("/api/prescription-master", prescriptionMasterRoutes)
 app.use("/api/doctor", doctorRoutes)
+
+//app.use("/api/weekly-schedule", weeklyScheduleRoutes);
+app.use("/api/appointment-settings", appointmentSettingsRoutes);
+//app.use("/api/blocked-slots", blockedSlotRoutes);
 
 const PORT = process.env.PORT || 3000;//5000;
 //app.listen(PORT, ()=>console.log("server is running on", PORT));
