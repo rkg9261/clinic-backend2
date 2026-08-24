@@ -11,7 +11,7 @@ import {
 
 export const addDoctor = async (req, res) => {
     try {
-        const {
+        const { 
             doctorName,
             mobile,
             hospitalName,

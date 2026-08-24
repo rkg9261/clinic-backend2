@@ -20,7 +20,8 @@ import doctorRoutes from "./routes/doctor.routes.js";
 import weeklyScheduleRoutes from "./routes/weeklySchedule.routes.js";
 //import weeklyScheduleRoutes from "./routes/weeklySchedule.routes.js";
 import appointmentSettingsRoutes from "./routes/appointmentSettings.routes.js";
-//import blockedSlotRoutes from "./routes/blockedSlot.routes.js";
+import blockedSlotRoutes from "./routes/blockedSlot.routes.js";
+import appointmentLeaveRoutes from "./routes/appointmentLeave.routes.js";
 
 
 const app = express();
@@ -102,8 +103,8 @@ app.use("/api/doctor", doctorRoutes)
 
 app.use("/api/weekly-schedule", weeklyScheduleRoutes);
 app.use("/api/appointment-settings", appointmentSettingsRoutes);
-//app.use("/api/blocked-slots", blockedSlotRoutes);
-import weeklyScheduleRoutes from "./routes/weeklySchedule.routes.js";
+app.use("/api/blocked-slots", blockedSlotRoutes);
+app.use("/api/appointment-leaves", appointmentLeaveRoutes);
 
 const PORT = process.env.PORT || 3000;//5000;
 //app.listen(PORT, ()=>console.log("server is running on", PORT));
