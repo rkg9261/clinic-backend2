@@ -1,4 +1,11 @@
 import { db } from "../config/db.js";
+import {
+    generateFileNumber,
+    generatePatientCode,
+    computePatientStats,
+    fetchPatientByFile,
+    getManagerBranchId
+} from "../utils/patient.helpers.js";
 
 export const createAppointment = async (req, res)=>{
     const { name, age, gender, whatsapp_number, appointment_date, appointment_time, appointment_time_to } = req.body;
@@ -7,13 +14,14 @@ export const createAppointment = async (req, res)=>{
     if (!name || !age || !gender || !whatsapp_number || !appointment_date || !appointment_time || !appointment_time_to) {
         return res.status(400).json({ error: "Missing required fields" });
     }
-
+    const managerId = req.user.id;
+    const branchId = await getManagerBranchId(managerId);
     try {
         const [result] = await db.query(
             `INSERT INTO appointments 
-             (name, age, gender, whatsapp_number, appointment_date, appointment_time, appointment_time_to) 
-             VALUES (?, ?, ?, ?, ?, ?, ?)`,
-            [name, age, gender, whatsapp_number, appointment_date, appointment_time, appointment_time_to]
+             (name, age, gender, whatsapp_number, appointment_date, appointment_time, appointment_time_to, clinic_id) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [name, age, gender, whatsapp_number, appointment_date, appointment_time, appointment_time_to, branchId]
         );
 
         res.status(201).json({
