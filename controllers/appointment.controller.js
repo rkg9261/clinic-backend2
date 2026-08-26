@@ -1,22 +1,21 @@
 import { db } from "../config/db.js";
 
 export const createAppointment = async (req, res)=>{
-    const { name, age, gender, whatsapp_number, appointment_date, appointment_time,appointment_time_to } = req.body;
-        const managerId = req.user.id;
-        const clinic_id = await getManagerBranchId(managerId);
+    const { name, age, gender, whatsapp_number, appointment_date, appointment_time } = req.body;
+
     // Basic validation
-    if (!name || !age || !gender || !whatsapp_number || !appointment_date || !appointment_timee || !appointment_time_to) {
+    if (!name || !age || !gender || !whatsapp_number || !appointment_date || !appointment_time) {
         return res.status(400).json({ error: "Missing required fields" });
     }
 
     try {
         const [result] = await db.query(
             `INSERT INTO appointments 
-             (name, age, gender, whatsapp_number, appointment_date, appointment_time, appointment_time_to, clinic_id) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-            [name, age, gender, whatsapp_number, appointment_date, appointment_time,appointment_time_to, clinic_id]
+             (name, age, gender, whatsapp_number, appointment_date, appointment_time) 
+             VALUES (?, ?, ?, ?, ?, ?)`,
+            [name, age, gender, whatsapp_number, appointment_date, appointment_time]
         );
-        
+
         res.status(201).json({
             success: true,
             message: "Appointment booked successfully",
