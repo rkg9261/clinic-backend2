@@ -14,7 +14,7 @@ export const addFaq = async (req, res) => {
             isActive = true
         } = req.body;
 
-        const managerId = req.user.id;
+        //const managerId = req.user.id;
 
         const branchId = req.user?.id ?? null;//await getManagerBranchId(managerId);
             
