@@ -15,7 +15,8 @@ export const createAppointment = async (req, res)=>{
         return res.status(400).json({ error: "Missing required fields" });
     }
     //const managerId = req.user.id;
-    const branchId = 1;//await getManagerBranchId(managerId);
+    //const branchId = await getManagerBranchId(managerId);
+    const branchId = req.user.id;
     try {
         const [result] = await db.query(
             `INSERT INTO appointments 
