@@ -4,7 +4,7 @@ export const createAppointment = async (req, res)=>{
     res.status(201).json({
             success: true,
             message: "Appointment booked111111111 successfully",
-            appointmentId: result.insertId
+            appointmentId: "ssssaaaaa"
         });
     const { name, age, gender, whatsapp_number, appointment_date, appointment_time,appointment_time_to } = req.body;
         const managerId = req.user.id;
