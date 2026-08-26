@@ -16,8 +16,8 @@ export const addFaq = async (req, res) => {
 
         const managerId = req.user.id;
 
-        const branchId =
-            await getManagerBranchId(managerId);
+        const branchId = req.user?.id ?? null;//await getManagerBranchId(managerId);
+            
 
 
         // ------------------------------------------
@@ -136,8 +136,7 @@ export const getFaqs = async (req, res) => {
 
         const managerId = req.user.id;
 
-        const branchId =
-            await getManagerBranchId(managerId);
+        const branchId = req.user?.id ?? null;//await getManagerBranchId(managerId);
 
 
         if (!branchId) {
@@ -194,8 +193,7 @@ export const getFaqById = async (req, res) => {
 
         const managerId = req.user.id;
 
-        const branchId =
-            await getManagerBranchId(managerId);
+        const branchId = req.user?.id ?? null;//await getManagerBranchId(managerId);
 
 
         if (!branchId) {
@@ -267,8 +265,7 @@ export const updateFaq = async (req, res) => {
 
         const managerId = req.user.id;
 
-        const branchId =
-            await getManagerBranchId(managerId);
+        const branchId = req.user?.id ?? null;//await getManagerBranchId(managerId);
 
 
         // ------------------------------------------
@@ -413,8 +410,7 @@ export const deleteFaq = async (req, res) => {
 
         const managerId = req.user.id;
 
-        const branchId =
-            await getManagerBranchId(managerId);
+        const branchId = req.user?.id ?? null;//await getManagerBranchId(managerId);
 
 
         if (!branchId) {
@@ -492,8 +488,7 @@ export const searchFaq = async (req, res) => {
 
         const managerId = req.user.id;
 
-        const branchId =
-            await getManagerBranchId(managerId);
+        const branchId = req.user?.id ?? null;//            await getManagerBranchId(managerId);
 
 
         if (!branchId) {
