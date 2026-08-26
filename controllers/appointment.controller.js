@@ -16,7 +16,7 @@ export const createAppointment = async (req, res)=>{
     }
     //const managerId = req.user.id;
     //const branchId = await getManagerBranchId(managerId);
-    const branchId = req.user.id;
+    const branchId = req.user?.id ?? null;
     try {
         const [result] = await db.query(
             `INSERT INTO appointments 
