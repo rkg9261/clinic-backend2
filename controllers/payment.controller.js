@@ -51,25 +51,25 @@ export const createPaymentOrder = async (req, res) => {
     }
 
     // Check existing payment
-    // const [existingPayment] = await db.query(
-    //   `
-    //   SELECT *
-    //   FROM appointment_payments
-    //   WHERE appointment_id = ?
-    //   LIMIT 1
-    //   `,
-    //   [appointmentId]
-    // );
+    const [existingPayment] = await db.query(
+      `
+      SELECT *
+      FROM appointment_payments
+      WHERE appointment_id = ?
+      LIMIT 1
+      `,
+      [appointmentId]
+    );
 
-    // if (
-    //   existingPayment.length &&
-    //   existingPayment[0].payment_status === "CAPTURED"
-    // ) {
-    //   return res.status(400).json({
-    //     success: false,
-    //     message: "Appointment payment is already completed."
-    //   });
-    // }
+    if (
+      existingPayment.length &&
+      existingPayment[0].payment_status === "CAPTURED"
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Appointment payment is already completed."
+      });
+    }
 
     // Create Razorpay order
     const order = await razorpay.orders.create({
@@ -128,7 +128,7 @@ export const createPaymentOrder = async (req, res) => {
       success: true,
       message: "Payment order created.",
       data: {
-        appointmentId: Number(appointmentId),
+        appointmentId,
         orderId: order.id,
         amount: paymentAmount,
         currency: "INR",
