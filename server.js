@@ -24,6 +24,7 @@ import blockedSlotRoutes from "./routes/blockedSlot.routes.js";
 import appointmentLeaveRoutes from "./routes/appointmentLeave.routes.js";
 import faqRoutes from "./routes/faq.routes.js";
 import blogRoutes from "./routes/blog.routes.js";
+import paymentRoutes from "./routes/payment.routes.js";
 
 const app = express();
 // --------------------------------------------------
@@ -66,6 +67,28 @@ app.use(cors(corsOptions));
 // --------------------------------------------------
 // Body Parser
 // --------------------------------------------------
+
+app.use(
+  "/api/payments/webhook",
+  express.raw({
+    type: "application/json"
+  }),
+  (req, res, next) => {
+    req.rawBody = req.body;
+
+    try {
+      req.body = JSON.parse(
+        req.body.toString()
+      );
+    } catch {
+      req.body = {};
+    }
+
+    next();
+  }
+);
+
+// Normal JSON APIs
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -108,6 +131,9 @@ app.use("/api/blocked-slots", blockedSlotRoutes);
 app.use("/api/appointment-leaves", appointmentLeaveRoutes);
 app.use("/api/faqs", faqRoutes);
 app.use("/api/blogs", blogRoutes);
+
+
+app.use("/api/payments", paymentRoutes);
 
 
 
