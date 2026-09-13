@@ -145,7 +145,7 @@ export const createPaymentOrder = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: "Unable to create payment order."
+      message: "Unable to create payment order1212."+error.message
     });
   }
 };
