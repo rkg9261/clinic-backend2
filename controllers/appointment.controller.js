@@ -38,7 +38,7 @@ export const createAppointment = async (req, res)=>{
 
 export const getAppointment = async(req, res)=>{
     try {
-        const [rows] = await db.query('SELECT * FROM appointments ORDER BY created_at DESC');
+        const [rows] = await db.query('SELECT * FROM appointments ORDER BY created_at DESC limit 5');
         console.log(rows)
         return res.json(rows);
     } catch (error) {

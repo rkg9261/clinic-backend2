@@ -134,17 +134,17 @@ export const addFaq = async (req, res) => {
 export const getFaqs = async (req, res) => {
     try {
 
-        const managerId = req.user.id;
+        //const managerId = req.user.id;
 
-        const branchId = req.user?.id ?? null;//await getManagerBranchId(managerId);
+        //const branchId = req.user?.id ?? null;//await getManagerBranchId(managerId);
 
 
-        if (!branchId) {
-            return res.status(400).json({
-                success: false,
-                message: "Branch not assigned."
-            });
-        }
+        // if (!branchId) {
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: "Branch not assigned."
+        //     });
+        // }
 
 
         const [faqs] = await db.query(
@@ -157,11 +157,7 @@ export const getFaqs = async (req, res) => {
                 created_at,
                 updated_at
              FROM faqs
-             WHERE branch_id = ?
-             ORDER BY created_at DESC`,
-            [
-                branchId
-            ]
+             ORDER BY created_at DESC`
         );
 
 
@@ -214,8 +210,9 @@ export const getFaqById = async (req, res) => {
                 created_at,
                 updated_at
              FROM faqs
-             WHERE id = ?
-             AND branch_id = ?`,
+             #WHERE id = ?
+             AND branch_id = ?
+             `,
             [
                 id,
                 branchId
