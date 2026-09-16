@@ -38,7 +38,10 @@ export const createAppointment = async (req, res)=>{
 
 export const getAppointment = async(req, res)=>{
     try {
-        const [rows] = await db.query('SELECT * FROM appointments ORDER BY created_at DESC limit 5');
+        const [rows] = await db.query(`SELECT * FROM appointments a 
+            left join appointment_payments ap on a.id= ap.appointment_id 
+            where ap.payment_status = 'CAPTURED' and a.created_at >= NOW() - INTERVAL 7 DAY 
+            ORDER BY a.created_at DESC;`);
         console.log(rows)
         return res.json(rows);
     } catch (error) {
