@@ -91,3 +91,22 @@ export const getManagerBranchId = async (userId) => {
     );
     return rows[0]?.branch_id ?? null;
 };
+
+export const convertToMySQLTime = (timeStr) => {
+    if (!timeStr) return null;
+
+    const [time, modifier] = timeStr.trim().split(/\s+/);
+    let [hours, minutes] = time.split(':');
+
+    hours = parseInt(hours, 10);
+
+    if (modifier.toUpperCase() === 'PM' && hours !== 12) {
+        hours += 12;
+    }
+
+    if (modifier.toUpperCase() === 'AM' && hours === 12) {
+        hours = 0;
+    }
+
+    return `${String(hours).padStart(2, '0')}:${minutes}:00`;
+};

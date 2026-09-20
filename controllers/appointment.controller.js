@@ -4,7 +4,8 @@ import {
     generatePatientCode,
     computePatientStats,
     fetchPatientByFile,
-    getManagerBranchId
+    getManagerBranchId,
+    convertToMySQLTime
 } from "../utils/patient.helpers.js";
 
 export const createAppointment = async (req, res)=>{
@@ -14,6 +15,8 @@ export const createAppointment = async (req, res)=>{
     if (!name || !age || !gender || !whatsapp_number || !appointment_date || !appointment_time || !appointment_time_to) {
         return res.status(400).json({ error: "Missing required fields" });
     }
+    const appointment_time1 =  convertToMySQLTime(appointment_time);
+    const appointment_time_to1 =  convertToMySQLTime(appointment_time_to);
     //const managerId = req.user.id;
     //const branchId = await getManagerBranchId(managerId);
     const branchId = req.user?.id ?? null;
