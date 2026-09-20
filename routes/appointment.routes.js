@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createAppointment,
+  getAppointmentByDate,
   getAppointment,
   getAppointmentById,
   deleteAppointment,
@@ -15,6 +16,7 @@ const router = express.Router();
 //localhost:5000  Z
 router.post("/create", createAppointment);
 router.get("/list", getAppointment)
+router.get("/listbydate/:date", getAppointmentByDate)
 router.get("/:id", getAppointmentById)
 router.delete("/:id", deleteAppointment)
 

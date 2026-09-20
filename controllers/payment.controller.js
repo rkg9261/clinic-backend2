@@ -250,6 +250,21 @@ export const verifyPayment = async (req, res) => {
       ]
     );
 
+    // Update FileNo to Appointment table when payment is captured
+    
+    await db.query(
+      `
+      UPDATE appointments
+      SET
+        fileNo = ?
+      WHERE appointment_id = ?
+      `,
+      [
+        fileNo,
+        appointmentId
+      ]
+    );
+
     return res.json({
       success: true,
       message: "Payment verified successfully.",

@@ -40,7 +40,7 @@ export const getAppointment = async(req, res)=>{
     try {
         const [rows] = await db.query(`SELECT * FROM appointments a 
             left join appointment_payments ap on a.id= ap.appointment_id 
-            where ap.payment_status = 'CAPTURED' and a.created_at >= NOW() - INTERVAL 7 DAY 
+            #where ap.payment_status = 'CAPTURED' and a.created_at >= NOW() - INTERVAL 7 DAY 
             ORDER BY a.created_at DESC;`);
         console.log(rows)
         return res.json(rows);
@@ -49,6 +49,22 @@ export const getAppointment = async(req, res)=>{
     }
 }
 
+export const getAppointmentByDate = async(req, res)=>{
+    try {
+        const [rows] = await db.query(`SELECT * FROM appointments a 
+            left join appointment_payments ap on a.id= ap.appointment_id 
+            where 
+            #ap.payment_status = 'CAPTURED' and 
+            a.appointment_date BETWEEN ? AND ?
+            ORDER BY a.appointment_date DESC;`, [req.params.date, req.params.date]);
+
+            console.log(req.params.date);
+        console.log(rows);
+        return res.json(rows);
+    } catch (error) {
+        return res.status(500).json({ error: "Failed to fetch appointments" });
+    }
+}
 
 export const getAppointmentById = async (req, res) => {
     try {
