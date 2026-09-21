@@ -177,7 +177,8 @@ export const getAppointmentLeaves = async (req, res) => {
     try {
         const managerId = req.user.id;
         const branchId = await getManagerBranchId(managerId);
-
+        console.log("Manager ID:", managerId);
+        console.log("Branch ID:", branchId);
         // ------------------------------------------
         // Check branch
         // ------------------------------------------
@@ -200,7 +201,7 @@ export const getAppointmentLeaves = async (req, res) => {
                 updated_at
              FROM appointment_leaves
              WHERE branch_id = ?
-             ORDER BY from_date ASC`,
+             ORDER BY from_date DESC`,
             [branchId]
         );
 
@@ -231,6 +232,9 @@ export const getAppointmentLeaveById = async (req, res) => {
         const managerId = req.user.id;
         const branchId = await getManagerBranchId(managerId);
 
+        console.log("Manager ID:", managerId);
+        console.log("Branch ID:", branchId);
+
         if (!branchId) {
             return res.status(400).json({
                 success: false,
@@ -256,6 +260,8 @@ export const getAppointmentLeaveById = async (req, res) => {
                 branchId
             ]
         );
+
+        console.log("Leave:", leave);
 
         if (leave.length === 0) {
             return res.status(404).json({
@@ -296,6 +302,9 @@ export const updateAppointmentLeave = async (req, res) => {
 
         const managerId = req.user.id;
         const branchId = await getManagerBranchId(managerId);
+
+        console.log("Manager ID:", managerId);
+        console.log("Branch ID:", branchId);
 
         // ------------------------------------------
         // Check branch
