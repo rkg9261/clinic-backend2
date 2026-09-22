@@ -57,7 +57,7 @@ export const getAppointmentByDate = async(req, res)=>{
         const [rows] = await db.query(`SELECT * FROM appointments a 
             left join appointment_payments ap on a.id= ap.appointment_id 
             where 
-            #ap.payment_status = 'CAPTURED' and 
+            ap.payment_status = 'CAPTURED' and 
             a.appointment_date BETWEEN ? AND ?
             ORDER BY a.appointment_date DESC;`, [req.params.date, req.params.date]);
 
