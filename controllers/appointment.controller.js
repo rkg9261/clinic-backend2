@@ -25,7 +25,7 @@ export const createAppointment = async (req, res)=>{
             `INSERT INTO appointments 
              (name, age, gender, whatsapp_number, appointment_date, appointment_time, appointment_time_to, clinic_id) 
              VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-            [name, age, gender, whatsapp_number, appointment_date, appointment_time, appointment_time_to, branchId]
+            [name, age, gender, whatsapp_number, appointment_date, appointment_time1, appointment_time_to1, branchId]
         );
 
         res.status(201).json({
