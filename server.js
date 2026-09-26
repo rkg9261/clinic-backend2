@@ -25,6 +25,7 @@ import appointmentLeaveRoutes from "./routes/appointmentLeave.routes.js";
 import faqRoutes from "./routes/faq.routes.js";
 import blogRoutes from "./routes/blog.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
+import appointmentAvailabilityRoutes from "./routes/appointmentAvailability.routes.js";
 
 const app = express();
 // --------------------------------------------------
@@ -134,6 +135,7 @@ app.use("/api/blogs", blogRoutes);
 
 
 app.use("/api/payments", paymentRoutes);
+app.use("/api/appointment-availability", appointmentAvailabilityRoutes);
 
 
 

@@ -7,6 +7,7 @@ import { getManagerBranchId } from "../utils/patient.helpers.js";
 // ======================================================
 export const addAppointmentLeave = async (req, res) => {
     try {
+        
         const {
             fromDate,
             toDate,
@@ -17,6 +18,7 @@ export const addAppointmentLeave = async (req, res) => {
         const managerId = req.user.id;
         const branchId = await getManagerBranchId(managerId);
 
+        
         // ------------------------------------------
         // Check branch
         // ------------------------------------------
