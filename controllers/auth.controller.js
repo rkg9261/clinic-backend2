@@ -199,6 +199,7 @@ export const roleBasedLogin = async (req, res) => {
         const normalizedIdentifier = String(identifier).trim().toLowerCase();
         const query = `SELECT id, name, email, mobile, password, role, branch_id, is_active, email_verified
                        FROM users WHERE email = ? OR mobile = ? LIMIT 1`;
+        
         const params = [normalizedIdentifier, String(identifier).trim()];
 
         const [rows] = await db.query(query, params);
