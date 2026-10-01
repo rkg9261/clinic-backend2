@@ -17,6 +17,7 @@ export const createAppointment = async (req, res) => {
     appointment_date,
     appointment_time,
     appointment_time_to,
+    branch_id,
   } = req.body;
 
   // Basic validation
@@ -27,7 +28,8 @@ export const createAppointment = async (req, res) => {
     !whatsapp_number ||
     !appointment_date ||
     !appointment_time ||
-    !appointment_time_to
+    !appointment_time_to ||
+    !branch_id
   ) {
     return res.status(400).json({ error: "Missing required fields" });
   }
@@ -35,7 +37,7 @@ export const createAppointment = async (req, res) => {
   const appointment_time_to1 = convertToMySQLTime(appointment_time_to);
   //const managerId = req.user.id;
   //const branchId = await getManagerBranchId(managerId);
-  const branchId = req.user?.id ?? null;
+  //const branchId = req.user?.id ?? null;
   try {
     const [result] = await db.query(
       `INSERT INTO appointments 
@@ -49,7 +51,7 @@ export const createAppointment = async (req, res) => {
         appointment_date,
         appointment_time1,
         appointment_time_to1,
-        branchId,
+        branch_id,
       ],
     );
 
