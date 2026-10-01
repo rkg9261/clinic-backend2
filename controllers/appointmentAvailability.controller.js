@@ -19,6 +19,35 @@ export const getNext7DaysAvailability = async (req, res) => {
         message: "Branch ID is required.",
       });
     }
+    // ==================================================
+    // 1. APPOINTMENT SETTINGS
+    // ==================================================
+
+    const [settingsRows] = await db.execute(
+      `
+            SELECT
+                enable_appointment,
+                slot_duration,
+                max_appointments_per_slot,
+                same_day_booking,
+                appointment_start_time,
+                appointment_end_time,
+                future_appointment_days
+            FROM appointment_settings
+            WHERE branch_id = ?
+            LIMIT 1
+            `,
+      [branchId],
+    );
+
+    if (settingsRows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Appointment settings not configured.",
+      });
+    }
+
+    const settings = settingsRows[0];
 
     const sql = `
             WITH RECURSIVE dates AS
@@ -29,7 +58,7 @@ export const getNext7DaysAvailability = async (req, res) => {
 
                 SELECT DATE_ADD(appointment_date, INTERVAL 1 DAY)
                 FROM dates
-                WHERE appointment_date < DATE_ADD(CURDATE(), INTERVAL 7 DAY)
+                WHERE appointment_date < DATE_ADD(CURDATE(), INTERVAL ${settings.future_appointment_days} DAY)
             ),
 
             leave_matches AS
@@ -299,9 +328,7 @@ export const getAvailableTimeSlots = async (req, res) => {
     // --------------------------------------------------
 
     const futureDays = Number(settings.future_appointment_days);
-
     const maximumDate = addDays(today, futureDays);
-
     if (selectedDate > maximumDate) {
       return res.status(200).json({
         success: true,
