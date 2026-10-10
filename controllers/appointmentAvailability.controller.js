@@ -542,11 +542,11 @@ export const getAvailableTimeSlots = async (req, res) => {
                 appointment_time_to
 
             FROM appointments
-
+            left join appointment_payments on appointments.id = appointment_payments.appointment_id
             WHERE clinic_id = ?
-
+    
               AND appointment_date = ?
-
+            and appointment_payments.payment_status = 'CAPTURED'
             ORDER BY appointment_time
             `,
       [branchId, selectedDate],
