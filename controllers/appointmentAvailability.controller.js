@@ -794,12 +794,26 @@ function addDays(dateString, days) {
   return `${year}-${month}-${day}`;
 }
 
+// function createDateTime(date, time) {
+//   const [hours, minutes] = time.substring(0, 5).split(":");
+
+//   const result = new Date(`${date}T00:00:00`);
+
+//   result.setHours(Number(hours), Number(minutes), 0, 0);
+
+//   return result;
+// }
 function createDateTime(date, time) {
-  const [hours, minutes] = time.substring(0, 5).split(":");
+  const [year, month, day] = date.split("-").map(Number);
 
-  const result = new Date(`${date}T00:00:00`);
+  const [hours, minutes, seconds = 0] = time
+    .split(":")
+    .map(Number);
 
-  result.setHours(Number(hours), Number(minutes), 0, 0);
-
-  return result;
+  // Database time is IST (UTC+05:30).
+  // Convert IST to UTC.
+  return new Date(
+    Date.UTC(year, month - 1, day, hours, minutes, seconds) -
+      (5 * 60 + 30) * 60 * 1000
+  );
 }
