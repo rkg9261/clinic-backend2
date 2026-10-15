@@ -609,7 +609,8 @@ export const getAvailableTimeSlots = async (req, res) => {
         // 70-minute booking rule
         // now 70 minutes is come from db dynamically 
         // ------------------------------------------
-
+        console.log("settings.minimumTimeBeforeBooking", settings.minimumTimeBeforeBooking);
+        console.log("Number(settings.minimumTimeBeforeBooking)", Number(settings.minimumTimeBeforeBooking));
         let allowedByNotice = true;
 
         if (selectedDate === today) {
