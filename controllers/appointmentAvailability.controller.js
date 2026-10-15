@@ -617,7 +617,7 @@ export const getAvailableTimeSlots = async (req, res) => {
           const now = new Date();
 
           const minimumBookingTime = new Date(now.getTime() + Number(settings.minimumTimeBeforeBooking) * 60 * 1000);
-
+          console.log('minimumBookingTime', minimumBookingTime);
           const slotDateTime = createDateTime(selectedDate, slotStart);
 
           if (slotDateTime <= minimumBookingTime) {
