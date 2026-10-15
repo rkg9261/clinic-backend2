@@ -638,12 +638,12 @@ export const getAvailableTimeSlots = async (req, res) => {
 
           const slotDateTime = createDateTime(selectedDate, slotStart);
 
-          // console.log({
-          //   now: now.toISOString(),
-          //   minimumBookingTime: minimumBookingTime.toISOString(),
-          //   slotDateTime: slotDateTime?.toISOString?.(),
-          //   minimumNoticeMinutes: MINIMUM_NOTICE_MINUTES,
-          // });
+          console.log({
+            now: now.toISOString(),
+            minimumBookingTime: minimumBookingTime.toISOString(),
+            slotDateTime: slotDateTime?.toISOString?.(),
+            minimumNoticeMinutes: MINIMUM_NOTICE_MINUTES,
+          });
 
           if (
             !(slotDateTime instanceof Date) ||
