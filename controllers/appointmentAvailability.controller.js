@@ -275,6 +275,7 @@ export const getAvailableTimeSlots = async (req, res) => {
                 slot_duration,
                 max_appointments_per_slot,
                 same_day_booking,
+                minimumTimeBeforeBooking,
                 appointment_start_time,
                 appointment_end_time,
                 future_appointment_days
@@ -606,6 +607,7 @@ export const getAvailableTimeSlots = async (req, res) => {
 
         // ------------------------------------------
         // 70-minute booking rule
+        // now 70 minutes is come from db dynamically 
         // ------------------------------------------
 
         let allowedByNotice = true;
@@ -613,7 +615,7 @@ export const getAvailableTimeSlots = async (req, res) => {
         if (selectedDate === today) {
           const now = new Date();
 
-          const minimumBookingTime = new Date(now.getTime() + 70 * 60 * 1000);
+          const minimumBookingTime = new Date(now.getTime() + Number(settings.minimumTimeBeforeBooking) * 60 * 1000);
 
           const slotDateTime = createDateTime(selectedDate, slotStart);
 
@@ -685,7 +687,7 @@ export const getAvailableTimeSlots = async (req, res) => {
 
       max_appointments_per_slot: maxAppointments,
 
-      minimum_booking_notice_minutes: 70,
+      minimum_booking_notice_minutes: Number(settings.minimumTimeBeforeBooking),
 
       total_slots: slots.length,
 
