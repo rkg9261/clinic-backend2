@@ -609,18 +609,47 @@ export const getAvailableTimeSlots = async (req, res) => {
         // 70-minute booking rule
         // now 70 minutes is come from db dynamically 
         // ------------------------------------------
-        console.log("settings.minimumTimeBeforeBooking", settings.minimumTimeBeforeBooking);
-        console.log("Number(settings.minimumTimeBeforeBooking)", Number(settings.minimumTimeBeforeBooking));
+        
+        // console.log("settings.minimumTimeBeforeBooking", settings.minimumTimeBeforeBooking);
+        // console.log("Number(settings.minimumTimeBeforeBooking)", Number(settings.minimumTimeBeforeBooking));
+        // let allowedByNotice = true;
+
+        // if (selectedDate === today) {
+        //   const now = new Date();
+
+        //   const minimumBookingTime = new Date(now.getTime() + Number(settings.minimumTimeBeforeBooking) * 60 * 1000);
+        //   console.log('minimumBookingTime', minimumBookingTime);
+        //   const slotDateTime = createDateTime(selectedDate, slotStart);
+        //   console.log('slotDateTime', slotDateTime);
+        //   if (slotDateTime <= minimumBookingTime) {
+        //     allowedByNotice = false;
+        //   }
+        // }
+        const MINIMUM_NOTICE_MINUTES = Number(settings.minimumTimeBeforeBooking) || 0;
+
         let allowedByNotice = true;
 
         if (selectedDate === today) {
           const now = new Date();
 
-          const minimumBookingTime = new Date(now.getTime() + Number(settings.minimumTimeBeforeBooking) * 60 * 1000);
-          console.log('minimumBookingTime', minimumBookingTime);
+          const minimumBookingTime = new Date(
+            now.getTime() + MINIMUM_NOTICE_MINUTES * 60 * 1000
+          );
+
           const slotDateTime = createDateTime(selectedDate, slotStart);
-          console.log('slotDateTime', slotDateTime);
-          if (slotDateTime <= minimumBookingTime) {
+
+          // console.log({
+          //   now: now.toISOString(),
+          //   minimumBookingTime: minimumBookingTime.toISOString(),
+          //   slotDateTime: slotDateTime?.toISOString?.(),
+          //   minimumNoticeMinutes: MINIMUM_NOTICE_MINUTES,
+          // });
+
+          if (
+            !(slotDateTime instanceof Date) ||
+            Number.isNaN(slotDateTime.getTime()) ||
+            slotDateTime <= minimumBookingTime
+          ) {
             allowedByNotice = false;
           }
         }
