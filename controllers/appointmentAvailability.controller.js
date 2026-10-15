@@ -619,7 +619,7 @@ export const getAvailableTimeSlots = async (req, res) => {
           const minimumBookingTime = new Date(now.getTime() + Number(settings.minimumTimeBeforeBooking) * 60 * 1000);
           console.log('minimumBookingTime', minimumBookingTime);
           const slotDateTime = createDateTime(selectedDate, slotStart);
-
+          console.log('slotDateTime', slotDateTime);
           if (slotDateTime <= minimumBookingTime) {
             allowedByNotice = false;
           }
