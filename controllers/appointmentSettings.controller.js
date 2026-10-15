@@ -15,6 +15,7 @@ export const addAppointmentSettings = async (req, res) => {
       appointmentStartTime,
       appointmentEndTime,
       futureAppointmentDays,
+      minimumTimeBeforeBooking,
     } = req.body;
 
     const managerId = req.user.id;
@@ -39,7 +40,8 @@ export const addAppointmentSettings = async (req, res) => {
       bookingStartDays === undefined ||
       appointmentStartTime === undefined ||
       appointmentEndTime === undefined ||
-      futureAppointmentDays === undefined
+      futureAppointmentDays === undefined ||
+      minimumTimeBeforeBooking === undefined
     ) {
       return res.status(400).json({
         success: false,
@@ -54,7 +56,8 @@ export const addAppointmentSettings = async (req, res) => {
       Number(slotDuration) <= 0 ||
       Number(maxAppointmentsPerSlot) <= 0 ||
       Number(bookingStartDays) < 0 ||
-      Number(futureAppointmentDays) < 0
+      Number(futureAppointmentDays) < 0 ||
+      Number(minimumTimeBeforeBooking) < 0
     ) {
       return res.status(400).json({
         success: false,
@@ -100,6 +103,7 @@ export const addAppointmentSettings = async (req, res) => {
                 slot_duration,
                 max_appointments_per_slot,
                 booking_start_days,
+                minimumTimeBeforeBooking,
                 same_day_booking,
                 appointment_start_time,
                 appointment_end_time,
@@ -107,7 +111,7 @@ export const addAppointmentSettings = async (req, res) => {
                 created_at,
                 updated_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+            VALUES (?, ?, ?, ?, ?,?, ?, ?, ?, ?, NOW(), NOW())`,
       [
         branchId,
         enableAppointment !== undefined ? enableAppointment : 1,
@@ -117,6 +121,8 @@ export const addAppointmentSettings = async (req, res) => {
         maxAppointmentsPerSlot,
 
         bookingStartDays,
+
+        minimumTimeBeforeBooking,
 
         sameDayBooking !== undefined ? sameDayBooking : 1,
 
@@ -139,6 +145,7 @@ export const addAppointmentSettings = async (req, res) => {
                 slot_duration,
                 max_appointments_per_slot,
                 booking_start_days,
+                minimumTimeBeforeBooking,
                 same_day_booking,
                 appointment_start_time,
                 appointment_end_time,
@@ -195,6 +202,7 @@ export const getAppointmentSettings = async (req, res) => {
                 slot_duration,
                 max_appointments_per_slot,
                 booking_start_days,
+                minimumTimeBeforeBooking,
                 same_day_booking,
                 appointment_start_time,
                 appointment_end_time,
@@ -240,6 +248,7 @@ export const updateAppointmentSettings = async (req, res) => {
       slotDuration,
       maxAppointmentsPerSlot,
       bookingStartDays,
+      minimumTimeBeforeBooking,
       sameDayBooking,
       appointmentStartTime,
       appointmentEndTime,
@@ -266,6 +275,7 @@ export const updateAppointmentSettings = async (req, res) => {
       slotDuration === undefined ||
       maxAppointmentsPerSlot === undefined ||
       bookingStartDays === undefined ||
+      minimumTimeBeforeBooking === undefined ||
       appointmentStartTime === undefined ||
       appointmentEndTime === undefined ||
       futureAppointmentDays === undefined
@@ -283,7 +293,8 @@ export const updateAppointmentSettings = async (req, res) => {
       Number(slotDuration) <= 0 ||
       Number(maxAppointmentsPerSlot) <= 0 ||
       Number(bookingStartDays) < 0 ||
-      Number(futureAppointmentDays) < 0
+      Number(futureAppointmentDays) < 0 ||
+      Number(minimumTimeBeforeBooking) < 0
     ) {
       return res.status(400).json({
         success: false,
@@ -328,6 +339,7 @@ export const updateAppointmentSettings = async (req, res) => {
                 slot_duration = ?,
                 max_appointments_per_slot = ?,
                 booking_start_days = ?,
+                minimumTimeBeforeBooking = ?,
                 same_day_booking = ?,
                 appointment_start_time = ?,
                 appointment_end_time = ?,
@@ -342,6 +354,8 @@ export const updateAppointmentSettings = async (req, res) => {
         maxAppointmentsPerSlot,
 
         bookingStartDays,
+
+        minimumTimeBeforeBooking,
 
         sameDayBooking !== undefined ? sameDayBooking : 1,
 
@@ -366,6 +380,7 @@ export const updateAppointmentSettings = async (req, res) => {
                 slot_duration,
                 max_appointments_per_slot,
                 booking_start_days,
+                minimumTimeBeforeBooking,
                 same_day_booking,
                 appointment_start_time,
                 appointment_end_time,
